@@ -14,15 +14,15 @@ use Libro\Form\LibroForm;
 
 class LibroController extends AbstractActionController{
    
-   protected $table;
+   protected $libroService;
    
    public function __construct(){
-           $this->table =new LibroService();
+           $this->libroService =new LibroService();
 
    }
    public function indexAction(){
       
-       $libros = $this->table->getAllLibro();
+       $libros = $this->libroService->getAllLibro();
        
        return new ViewModel(['libros' => $libros]);
    
@@ -32,7 +32,7 @@ class LibroController extends AbstractActionController{
         $form = new LibroForm();
         if($this->getRequest()->isPost()){
            $formData =$this->getRequest()->getPost();
-           $libro=$this->table->agregarLibro($formData);
+           $libro=$this->libroService->agregarLibro($formData);
            if($libro){
                $this->redirect()->toUrl($this->getRequest()->getBAseUrl().'/libro');
 
@@ -50,7 +50,7 @@ class LibroController extends AbstractActionController{
    public function deleteAction(){
 
     $id = $this->params()->fromRoute("id");
-    $libro = $this->table->eliminarLibro($id);
+    $libro = $this->libroService->eliminarLibro($id);
     //redirecciona al index del listado.
     return $this->redirect()->toUrl($this->getRequest()->getBaseUrl().'/libro/');
     }
@@ -61,7 +61,7 @@ class LibroController extends AbstractActionController{
     #recupera id
     $id = $this->params()->fromRoute("id");
     //echo $id_user; exit;
-    $libro = $this->table->getLibroById($id);
+    $libro = $this->libroService->getLibroById($id);
     //carga los valores al formulario
     $form-> setData($libro);
     //para que nos muestre el formulario
@@ -70,7 +70,7 @@ class LibroController extends AbstractActionController{
       $formData = $this->getRequest()->getPost();
       //imprime
       //echo "<pre>"; print_r($formData);exit;
-      $libro = $this->table->actualizarLibro($formData);
+      $libro = $this->libroService->actualizarLibro($formData);
         if ($libro) {
           # valida que la variable tenga algo para regresarlo.
           $this->redirect()->toUrl($this->getRequest()->getBAseUrl().'/libro');
