@@ -1,0 +1,26 @@
+<div class='row'>
+<table class="table table-hover">
+ <thead>
+   <tr>
+     <th scope="col">Id</th>
+     <th scope="col">Nombre</th>
+     <th scope="col">Precio</th>
+   
+   </tr>
+ </thead>
+ <tbody>
+  <?php foreach ($this->libros as $libro) {?>
+    <tr>
+      <td><?php echo $libro['id']; ?></td>
+      <td><?php echo $libro['nombre']; ?></td>
+      <td><?php echo $libro['precio']; ?></td>
+
+      <td><a class="btn btn-primary" href="<?php echo $this->basePath()."/libro/edit/".$libro['id'];?>">Modificar</a></td>
+      <td><a class="btn btn-warning" href="<?php echo $this->basePath()."/libro/delete/".$libro['id'];?>">Eliminar</a></td>
+    </tr>
+    <?php } ?>
+
+ </tbody>
+</table>
+
+<a class="btn btn-warning" href='http://localhost/libro/public/libro/add'"<?php echo $this->basePath()."libro/add"?>">Agregar libro</a>
